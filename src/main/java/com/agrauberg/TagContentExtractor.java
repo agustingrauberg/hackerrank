@@ -12,16 +12,16 @@ public class TagContentExtractor {
             while (testCases > 0) {
                 String line = in.nextLine();
                 boolean matchFound = false;
-                Pattern pattern = Pattern.compile("<(.+)>([^<]+)</\\1");
+                Pattern pattern = Pattern.compile("<(.+)>([^<]+)</\\1>");
                 Matcher match = pattern.matcher(line);
 
                 while(match.find()) {
-                    System.out.println(match.group(2));
+                    System.out.print(match.group(2));
                     matchFound = true;
                 }
 
                 if (!matchFound) {
-                    System.out.println("None");
+                    System.out.print("None");
                 }
                 testCases--;
             }

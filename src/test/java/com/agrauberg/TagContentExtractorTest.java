@@ -1,38 +1,39 @@
 package com.agrauberg;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TagContentExtractorTest {
-
-    @BeforeEach
-    public void setUp() {
-        TagContentExtractor.tags.clear();
-        TagContentExtractor.phrases.clear();
-    }
-
     @ParameterizedTest
-    @MethodSource("testCases")
-    void testExtraction(String input, String expectedOutput) {
-//        assertEquals(expectedOutput, TagContentExtractor.extract(input));
+    @MethodSource("testCasesProvider")
+    void testMethod(String input, String expectedOutput) throws IOException {
+        // Set up input and output streams
+        try (InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            PrintStream printStream = new PrintStream(outputStream);
+            // Redirect System.in and System.out
+            System.setIn(inputStream);
+            System.setOut(printStream);
+
+            // Run the method
+            TagContentExtractor.main(new String[]{});
+
+            // Assert the output
+            assertEquals(expectedOutput, outputStream.toString());
+        }
     }
 
-    private static Stream<Object[]> testCases() {
+    private static Stream<Arguments> testCasesProvider() {
         return Stream.of(
-                new Object[]{"<a>Hello</a><b>World</b>", "Hello\r\nWorld\r\n"},
-                new Object[]{"", ""},
-                new Object[]{"This is a test.", "This is a test."},
-                new Object[]{"This is a </b>test.", "This is a Noneb>test.\r\n"},
-                new Object[]{"<a><b>Inner</b></a>", "Inner\r\n"},
-                new Object[]{"<a>TagA</a><b>TagB</b>", "TagA\r\nTagB\r\n"},
-                new Object[]{"This is a </a>test.", "This is a Nonea>test."},
-                new Object[]{"<a></a><b></b>", "\r\n\r\n"},
-                new Object[]{"<a href=\"https://example.com\">Link</a>", "Link\r\n"}
+                Arguments.of("1\n<tag>First test case</tag>", "First test case"),
+                Arguments.of("1\n<invalid_tag>Second test case</invalid_tag_close>", "None")
+                // Add more test cases as needed
         );
     }
 }
