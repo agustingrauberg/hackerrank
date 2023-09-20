@@ -1,4 +1,4 @@
-package com.agrauberg;
+package com.agrauberg.exercises;
 
 import java.util.HashMap;
 import java.util.Map;

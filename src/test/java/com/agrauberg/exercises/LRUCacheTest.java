@@ -1,5 +1,6 @@
-package com.agrauberg;
+package com.agrauberg.exercises;
 
+import com.agrauberg.exercises.LRUCache;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
