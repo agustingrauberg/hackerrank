@@ -1,8 +1,6 @@
 package com.agrauberg.exercises;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LRUCache {
@@ -39,7 +37,6 @@ public class LRUCache {
     public void add(int key, double value) {
         Node node = cache.get(key);
         if (node != null) {
-            node.value = value;
             // Relink my prev and next nodes
             if (node.prev != null) {
                 node.prev.next = node.next;
