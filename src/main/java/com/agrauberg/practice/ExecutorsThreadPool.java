@@ -1,4 +1,4 @@
-package com.agrauberg.exercises;
+package com.agrauberg.practice;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;

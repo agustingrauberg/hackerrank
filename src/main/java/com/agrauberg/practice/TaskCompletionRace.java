@@ -1,4 +1,4 @@
-package com.agrauberg.exercises;
+package com.agrauberg.practice;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
