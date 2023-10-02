@@ -19,9 +19,9 @@ public class RunnableDemo {
         demo.run();
 
         System.out.println("Called RUNNABLE on Executor");
-        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        executorService.submit(demo);
-
-        executorService.shutdown();
+        try (ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
+            executorService.submit(demo);
+            executorService.shutdown();
+        }
     }
 }

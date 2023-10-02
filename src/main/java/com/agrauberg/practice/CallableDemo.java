@@ -38,9 +38,9 @@ public class CallableDemo {
         System.out.println("Callable output is: " + demo.call());
 
         System.out.println("Running CALLABLE on executor!!");
-        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        executor.submit(demo);
-
-        executor.shutdown();
+        try (ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())) {
+            executorService.submit(demo);
+            executorService.shutdown();
+        }
     }
 }
